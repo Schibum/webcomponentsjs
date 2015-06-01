@@ -29,7 +29,7 @@ var initializeModules = function() {
 // exports
 scope.addModule = addModule;
 scope.initializeModules = initializeModules;
-scope.hasNative = Boolean(document.registerElement);
+scope.hasNative = false;
 
 // NOTE: For consistent timing, use native custom elements only when not
 // polyfilling other key related web components features.
