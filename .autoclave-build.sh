@@ -13,7 +13,7 @@ node_modules/.bin/gulp release
 
 lasttag=`git tag -l | sort -t. -k1,1n -k2,2n -k3,3n | tail -n 1`
 git checkout --detach ${lasttag}
-git merge -s ours master --no-commit
+git merge -s ours extension_hack --no-commit
 
 files=(`ls dist | sed -e 's/\/dist//'`)
 mv dist/* .
