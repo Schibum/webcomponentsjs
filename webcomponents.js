@@ -158,7 +158,7 @@ if (WebComponents.flags.shadow) {
       defineProperty(object, name, nonEnumerableDataDescriptor);
     }
     getOwnPropertyNames(window);
-    function getWrapperConstructor(node) {
+    function getWrapperConstructor(node, opt_instance) {
       var nativePrototype = node.__proto__ || Object.getPrototypeOf(node);
       if (isFirefox) {
         try {
@@ -171,7 +171,7 @@ if (WebComponents.flags.shadow) {
       if (wrapperConstructor) return wrapperConstructor;
       var parentWrapperConstructor = getWrapperConstructor(nativePrototype);
       var GeneratedWrapper = createWrapperConstructor(parentWrapperConstructor);
-      registerInternal(nativePrototype, GeneratedWrapper, node);
+      registerInternal(nativePrototype, GeneratedWrapper, opt_instance);
       return GeneratedWrapper;
     }
     function addForwardingProperties(nativePrototype, wrapperPrototype) {
@@ -231,8 +231,10 @@ if (WebComponents.flags.shadow) {
         }
         var descriptor = getDescriptor(source, name);
         var getter, setter;
-        if (allowMethod && typeof descriptor.value === "function") {
-          target[name] = getMethod(name);
+        if (typeof descriptor.value === "function") {
+          if (allowMethod) {
+            target[name] = getMethod(name);
+          }
           continue;
         }
         var isEvent = isEventHandlerName(name);
@@ -295,7 +297,11 @@ if (WebComponents.flags.shadow) {
     function wrap(impl) {
       if (impl === null) return null;
       assert(isNative(impl));
-      return impl.__wrapper8e3dd93a60__ || (impl.__wrapper8e3dd93a60__ = new (getWrapperConstructor(impl))(impl));
+      var wrapper = impl.__wrapper8e3dd93a60__;
+      if (wrapper != null) {
+        return wrapper;
+      }
+      return impl.__wrapper8e3dd93a60__ = new (getWrapperConstructor(impl, impl))(impl);
     }
     function unwrap(wrapper) {
       if (wrapper === null) return null;
@@ -4688,7 +4694,7 @@ if (WebComponents.flags.shadow) {
         }
       }
     };
-    var selectorRe = /([^{]*)({[\s\S]*?})/gim, cssCommentRe = /\/\*[^*]*\*+([^\/*][^*]*\*+)*\//gim, cssCommentNextSelectorRe = /\/\*\s*@polyfill ([^*]*\*+([^\/*][^*]*\*+)*\/)([^{]*?){/gim, cssContentNextSelectorRe = /polyfill-next-selector[^}]*content\:[\s]*?['"](.*?)['"][;\s]*}([^{]*?){/gim, cssCommentRuleRe = /\/\*\s@polyfill-rule([^*]*\*+([^\/*][^*]*\*+)*)\//gim, cssContentRuleRe = /(polyfill-rule)[^}]*(content\:[\s]*['"](.*?)['"])[;\s]*[^}]*}/gim, cssCommentUnscopedRuleRe = /\/\*\s@polyfill-unscoped-rule([^*]*\*+([^\/*][^*]*\*+)*)\//gim, cssContentUnscopedRuleRe = /(polyfill-unscoped-rule)[^}]*(content\:[\s]*['"](.*?)['"])[;\s]*[^}]*}/gim, cssPseudoRe = /::(x-[^\s{,(]*)/gim, cssPartRe = /::part\(([^)]*)\)/gim, polyfillHost = "-shadowcsshost", polyfillHostContext = "-shadowcsscontext", parenSuffix = ")(?:\\((" + "(?:\\([^)(]*\\)|[^)(]*)+?" + ")\\))?([^,{]*)";
+    var selectorRe = /([^{]*)({[\s\S]*?})/gim, cssCommentRe = /\/\*[^*]*\*+([^/*][^*]*\*+)*\//gim, cssCommentNextSelectorRe = /\/\*\s*@polyfill ([^*]*\*+([^/*][^*]*\*+)*\/)([^{]*?){/gim, cssContentNextSelectorRe = /polyfill-next-selector[^}]*content\:[\s]*?['"](.*?)['"][;\s]*}([^{]*?){/gim, cssCommentRuleRe = /\/\*\s@polyfill-rule([^*]*\*+([^/*][^*]*\*+)*)\//gim, cssContentRuleRe = /(polyfill-rule)[^}]*(content\:[\s]*['"](.*?)['"])[;\s]*[^}]*}/gim, cssCommentUnscopedRuleRe = /\/\*\s@polyfill-unscoped-rule([^*]*\*+([^/*][^*]*\*+)*)\//gim, cssContentUnscopedRuleRe = /(polyfill-unscoped-rule)[^}]*(content\:[\s]*['"](.*?)['"])[;\s]*[^}]*}/gim, cssPseudoRe = /::(x-[^\s{,(]*)/gim, cssPartRe = /::part\(([^)]*)\)/gim, polyfillHost = "-shadowcsshost", polyfillHostContext = "-shadowcsscontext", parenSuffix = ")(?:\\((" + "(?:\\([^)(]*\\)|[^)(]*)+?" + ")\\))?([^,{]*)";
     var cssColonHostRe = new RegExp("(" + polyfillHost + parenSuffix, "gim"), cssColonHostContextRe = new RegExp("(" + polyfillHostContext + parenSuffix, "gim"), selectorReSuffix = "([>\\s~+[.,{:][\\s\\S]*)?$", colonHostRe = /\:host/gim, colonHostContextRe = /\:host-context/gim, polyfillHostNoCombinator = polyfillHost + "-no-combinator", polyfillHostRe = new RegExp(polyfillHost, "gim"), polyfillHostContextRe = new RegExp(polyfillHostContext, "gim"), shadowDOMSelectorsRe = [ />>>/g, /::shadow/g, /::content/g, /\/deep\//g, /\/shadow\//g, /\/shadow-deep\//g, /\^\^/g, /\^/g ];
     function stylesToCssText(styles, preserveComments) {
       var cssText = "";
@@ -6425,7 +6431,7 @@ window.CustomElements = window.CustomElements || {
   };
   scope.addModule = addModule;
   scope.initializeModules = initializeModules;
-  scope.hasNative = Boolean(document.registerElement);
+  scope.hasNative = false;
   scope.useNative = !flags.register && scope.hasNative && !window.ShadowDOMPolyfill && (!window.HTMLImports || HTMLImports.useNative);
 })(CustomElements);
 
