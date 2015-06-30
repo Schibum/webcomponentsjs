@@ -1,33 +1,33 @@
 BUILD LOG
 ---------
-Build Time: 2015-06-26T10:20:16+0200
+Build Time: 2015-06-30T16:38:45+0200
 
 NODEJS INFORMATION
 ==================
 nodejs: v0.12.4
 gulp: 3.8.11
 gulp-audit: 1.0.0
-gulp-concat: 2.5.2
 gulp-header: 1.2.2
+gulp-concat: 2.5.2
 gulp-uglify: 1.2.0
 run-sequence: 1.1.0
 web-component-tester: 3.1.3
 
 REPO REVISIONS
 ==============
-webcomponentsjs: cbf65b320deeca847ccc5b22c82b8c46ea9e3846
+webcomponentsjs: e34c695cc604bf64925e71f6a8d3bbe89d472796
 
 BUILD HASHES
 ============
-CustomElements.js: fe4fedcc83603f5b7be03d3fd3b82a71a435d70e
-CustomElements.min.js: 9f0cf5421fc9a4e02f4f5b42ab3d313dec0be3dc
+CustomElements.js: 106f5bb4160838f0c3a352d5357bd22690bf9637
+CustomElements.min.js: beb773634f7da30b6f2916232633d5456c9acd0c
 HTMLImports.js: 6aa44b4dbe224ba04011308ffcfc7bac4d2ecf45
 HTMLImports.min.js: ac0190e185cf6a3fcd9b092b2143b8796c2b2db7
 MutationObserver.js: 6d07c7fab2a59b4d3face7bf3b61474514d506ec
 MutationObserver.min.js: 3e3ec659c0b2c27d5717f2155507d76f06abf103
 ShadowDOM.js: 9135812848de92d36600e9be586a0d96e7af6877
 ShadowDOM.min.js: 266c5c218ab9442d243af9539076e24d9e9522d0
-webcomponents-lite.js: 928131ea9741c036080581560e2800e63a3a9628
-webcomponents-lite.min.js: 336196430404d4f024b9f8660342ffc385913df9
-webcomponents.js: b653ea353039bfd1d8732a9d2add92621ce88861
-webcomponents.min.js: 44ce59cb0b671c91057e02fea84868fffd385ae5
+webcomponents-lite.js: 2cfbf5bc69172da1b824b40bd69e731336a59d11
+webcomponents-lite.min.js: 8664b2fe20727070c7d9cdae0f434c998c64fad9
+webcomponents.js: 273b45693e8741cd7c0d4b5732a1629e72e07ca5
+webcomponents.min.js: 979c9bbbf3025c52e799f4a0159edc3e26ba8373

@@ -261,9 +261,7 @@ CustomElements.addModule(function(scope) {
     observe(doc);
     flags.dom && console.groupEnd();
   }
-  function upgradeDocumentTree(doc) {
-    forDocumentTree(doc, upgradeDocument);
-  }
+  function upgradeDocumentTree(doc) {}
   var originalCreateShadowRoot = Element.prototype.createShadowRoot;
   if (originalCreateShadowRoot) {
     Element.prototype.createShadowRoot = function() {
