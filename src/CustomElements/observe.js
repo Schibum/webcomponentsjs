@@ -285,7 +285,8 @@ has pending custom elements to upgrade. It can be called multiple times and
 should do nothing if no elements are in need of upgrade.
 */
 function upgradeDocumentTree(doc) {
-  forDocumentTree(doc, upgradeDocument);
+  // disabled for chrome content-script extension use.
+  // forDocumentTree(doc, upgradeDocument);
 }
 
 
